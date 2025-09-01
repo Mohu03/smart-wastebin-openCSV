@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
+  <meta charset='utf-8'>
+
+  <script> 
+    function updateTime() 
+    {  
+       var d = new Date();
+       var t = "";
+       t = d.toLocaleTimeString();
+       document.getElementById('P_time').innerHTML = t;
+    }
+
+    function updateTemp() 
+    {  
+       ajaxLoad('getTemp'); 
+    }
+
+    var ajaxRequest = null;
+    if (window.XMLHttpRequest) { ajaxRequest =new XMLHttpRequest(); }
+    else { ajaxRequest =new ActiveXObject("Microsoft.XMLHTTP"); }
+
+    function ajaxLoad(ajaxURL)
+    {
+      if(!ajaxRequest){ alert('AJAX is not supported.'); return; }
+
+      ajaxRequest.open('GET',ajaxURL,true);
+      ajaxRequest.onreadystatechange = function()
+      {
+        if(ajaxRequest.readyState == 4 && ajaxRequest.status==200)
+        {
+          var ajaxResult = ajaxRequest.responseText;
+          var tmpArray = ajaxResult.split("|");
+          document.getElementById('temp_C').innerHTML = tmpArray[0];
+          document.getElementById('temp_F').innerHTML = tmpArray[1];
+          document.getElementById('hmd').innerHTML = tmpArray[2];
+        }
+      }
+      ajaxRequest.send();
+    }
+
+    var myVar1 = setInterval(updateTemp, 5000);  
+    var myVar2 = setInterval(updateTime, 1000);  
+
+  </script>
+
+
+  <!-- <title>Waste Segregation System with Credits</title> -->
+  <body>
+    <div class="topnav">
+      <h3>Waste Segregation System with Credits</h3>
+    </div>
+ </head>
+ <head>
+    <title>Waste Segregation System with Credits</title>
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+ <link rel="icon" href="data:,">
+ <style>
+   html {font-family: Arial; display: inline-block; text-align: center;}
+   p { font-size: 1.2rem;}
+   .f {font-size: 2rem;}
+   body { margin: 0; background-image : -webkit-linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5)),url(https://cdn.pixabay.com/photo/2013/07/25/13/01/stones-167089_1280.jpg); background-size: cover; background-color: hsl(0, 0%, 50%);}
+   .topnav { overflow: hidden; background-image : url(https://cdn.pixabay.com/photo/2013/07/25/13/01/stones-167089_1280.jpg); background-size: cover; color: rgb(255, 255, 255); font-size: 1.7rem; text-decoration-line:overline; text-decoration-line:underline; text-shadow: 0 0 10px black, 0 0 10px black;}
+   .content { padding: 20px; }
+   .card { background-color: rgb(216, 216, 216); box-shadow: 2px 2px 12px 1px rgba(140,140,140,.5); border-radius: 50px; opacity: 90%;}
+   /* .card { background-image : url(https://cdn.pixabay.com/photo/2016/03/15/02/42/floor-1256804_1280.jpg); box-shadow: 2px 2px 12px 1px rgba(140,140,140,.5);border-radius: 50px; } */
+   .cards { max-width: 700px; margin: 0 auto; display: grid; grid-gap: 2rem; }
+   .reading { font-size: 2.8rem; }
+   .packet { color: #bebebe; }
+   .card.temperature { color: #fd7e14; }
+   .card.humidity { color: #1b78e2; }
+   .card.time { color: #df139b; }
+ </style>
+ </head>
+ <body>
+    <div class="content">
+    <!-- <div id='content'> -->
+    <div class="cards">
+        <div class="card time">
+          <h4><p class="f" id='P_time'>Time</p></h4>
+          <!-- <p><span class="reading"><span id="t1"></span> &deg;C</span></p><p class="packet">Reading ID: <span id="rt1"></span></p> -->
+        </div> 
+        
+          <div class="card humidity">
+            <h4> <h2>&#10939; Student 1 &#10940;</h2></h4><p> <span id='temp_C'>--.-</span> &#8377;</p>
+          </div>
+            <div class="card temperature">
+            <h4> <h2>&#8810; Student 2 &#8811;</h2></h4><p> <span id='temp_F'>--.-</span> &#x20B9; </p>
+          </div>
+     </div>
+    </div>
+   
+ </body>
+</body>
+</html>
+)
